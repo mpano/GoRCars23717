@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    
+    
+    <h:head>
+        <title>Car registration</title>
+        <meta charset="UTF-8"/>
+        
+            </h:head>
+    <h:body>
+   <div class="card">
+    <h:form>
+        <p:panel header="Registration"   toggleable="true"  toggleSpeed="5000" closable="true" >
+            <p:growl id="message" showDetail="true" />
+        <h:panelGrid columns="3" >
+            <p:outputLabel value="Plate Number"  />
+            <p:inputText label="plateno" value="#{carbean.car.plateNo}" id="plate" required="true" validatorMessage="goverment plate look like this GR234A" >
+                <f:validateRegex pattern="GR[0-9]{3}[A-Z]{1}"  />
+            </p:inputText>
+            <p:message  for="plate" showDetail="true"/>
+            <p:outputLabel value="Car Model"  />
+            <p:inputText label="model" value="#{carbean.car.model}" id="model" required="true"  />
+            <p:message for="model" showDetail="true"/>
+            <p:outputLabel value="Institution"  />
+            <p:inputText label="institution" value="#{carbean.car.institution}" id="inst" required="true" />
+            <p:message for="inst" showDetail="true"/>
+            <p:outputLabel value="Manufacturing Year"  />
+            <p:inputText label="year" validatorMessage="we dont allowed car less than 2000 " value="#{carbean.car.manufacturingYear}" id="year" required="true" >
+                <f:validateLongRange minimum="2000" />   
+            </p:inputText>
+            <p:message for="year" showDetail="true"/>
+            <p:outputLabel value="entrance Date"  />
+            <p:calendar label="date"   value="#{carbean.car.entranceDate}" id="date" required="true" >
+                <f:validator validatorId="mydate" />
+                <f:convertDateTime pattern="MM/dd/yyyy" />
+            </p:calendar>  
+            <p:message for="date" showDetail="true"/>
+            <p:outputLabel value="Purchase cost" />
+            <p:inputText label="cost"  validatorMessage="the amount of car allowd is from 1M to 100M" value="#{carbean.car.purchaseCost}" id="cost" required="true" >
+                <f:validateLongRange minimum="1000000" maximum="100000000" />
+            </p:inputText>
+            <p:message for="cost" showDetail="true"/>
+            <p:outputLabel value="" />
+            <p:commandButton  value="Confirm" action="#{carbean.save()}" update="message" styleClass="ui=button-info" icon="pi pi-check" />
+        </h:panelGrid>
+        </p:panel>
+        <p:button value="view car list" outcome="carList" styleClass="ui-button-raised ui-button-danger" />
+    </h:form>
+</div>       
+</h:body>    
+   
+
+</html>
